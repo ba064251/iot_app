@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:iot_project/Home_Screen.dart';
 import 'package:iot_project/Login_Screen.dart';
+import 'package:iot_project/Register_Screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -39,7 +40,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Hello World"),),
+      backgroundColor: Color(0xffefefef),
+      body: Center(child: Container(
+          width: 200,
+          height: 200,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            image: DecorationImage(image: AssetImage('images/SplashScreen.png'))
+          ),
+      ),),
     );
   }
 }
