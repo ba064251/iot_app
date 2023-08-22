@@ -13,8 +13,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  String temp = "25";
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
