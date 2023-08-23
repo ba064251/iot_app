@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:iot_project/Home_Screen.dart';
+import 'package:http/http.dart' as http;
 import 'package:iot_project/Login_Screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -29,6 +31,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // Form Key
 
   final _key = GlobalKey<FormState>();
+
+
+  // Adding user
+
+  Future _insertuser()async{
+    var headers = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    };
+    var request = http.Request('POST', Uri.parse('http://tazzz.codetech.pk/Api/User-Add.php'));
+    request.body = json.encode({
+      "uname": "${_name.text.toString()}",
+      "uemail": "${_email.text.toString()}",
+      "upass": "${_pass.text.toString()}",
+      "urole": "2"
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    }
+    else {
+    print(response.reasonPhrase);
+    }
+  }
 
   @override
   void dispose() {
@@ -172,9 +201,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             onPressed: (){
                               if (_key.currentState!.validate()) {
+                                _insertuser();
                                 _name.clear();
                                 _email.clear();
                                 _pass.clear();
+                                Navigator.push(context,  MaterialPageRoute(builder: (context) => LoginScreen(),));
                               }
 
                         }, child: Center(child: Text("Sign Up"),)),
